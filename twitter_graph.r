@@ -85,11 +85,29 @@ plot(m.scale)
 text(m.scale, labels = rownames(m.scale))
 
 #sieć z macierzą korelacji
-mat.cor <- cor(mat)
+# mat.cor <- cor(mat)
+
+# poniżej to samo tylko ręcznie - dla 100 najbardziej obserwowanych
+corr.matrix.dimension <- 1000
+
+sumy <- colSums(mat)
+rownums <- head(order(-sumy), corr.matrix.dimension)
+mat.cor <- matrix(NA, nrow = corr.matrix.dimension, ncol = corr.matrix.dimension)
+
+for(i in 1:corr.matrix.dimension)
+	for(j in 1:corr.matrix.dimension)
+		mat.cor[i,j] <- cor(mat[,rownums[i]], mat[,rownums[j]])
+
+mat.cor.names <- colnames(mat)
+colnames(mat.cor) <- mat.cor.names[rownums]
+rownames(mat.cor) <- mat.cor.names[rownums]
+
+
+
 mat.cor.dist <- dist(mat.cor %*% mat.cor)
 mat.cor.scale <- cmdscale(mat.cor.dist)
-plot(mat.cor.scale)
-text(mat.cor.scale, labels = rownames(mat.cor.scale))
+#plot(mat.cor.scale)
+#text(mat.cor.scale, labels = rownames(mat.cor.scale))
 
 mat.cor.scale.df <- as.data.frame(mat.cor.scale)
 mat.cor.scale.df$name <- rownames(mat.cor.scale.df)
