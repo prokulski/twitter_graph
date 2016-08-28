@@ -76,12 +76,13 @@ mat <- matrix(m, nrow=nrow(m))
 rownames(mat) <- rownames(m)
 colnames(mat) <- colnames(m)
 
+save(mat, l, m, twuser, me.friends.df, file="saved_data.Rdata")
+
 # sieć wprost
 m.dist <- dist(mat %*% t(mat))
 m.scale <- cmdscale(m.dist)
 plot(m.scale)
 text(m.scale, labels = rownames(m.scale))
-
 
 #sieć z macierzą korelacji
 mat.cor <- cor(mat)
@@ -95,4 +96,3 @@ mat.cor.scale.df$name <- rownames(mat.cor.scale.df)
 mat.cor.scale.df %>%
 	# filter(V1>=750, V2>=0) %>%
 	ggplot(aes(x=V1, y=V2, label=name)) + geom_point() + geom_text(size=2)
-
