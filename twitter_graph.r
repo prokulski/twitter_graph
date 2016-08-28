@@ -88,10 +88,14 @@ text(m.scale, labels = rownames(m.scale))
 # mat.cor <- cor(mat)
 
 # poniżej to samo tylko ręcznie - dla 100 najbardziej obserwowanych
-corr.matrix.dimension <- 1000
+corr.matrix.dimension <- 200
+
+# losowa próbka:
+# rownums <- sample(1:ncol(mat), corr.matrix.dimension, replace = FALSE)
 
 sumy <- colSums(mat)
 rownums <- head(order(-sumy), corr.matrix.dimension)
+
 mat.cor <- matrix(NA, nrow = corr.matrix.dimension, ncol = corr.matrix.dimension)
 
 for(i in 1:corr.matrix.dimension)
@@ -101,6 +105,13 @@ for(i in 1:corr.matrix.dimension)
 mat.cor.names <- colnames(mat)
 colnames(mat.cor) <- mat.cor.names[rownums]
 rownames(mat.cor) <- mat.cor.names[rownums]
+
+
+library(corrplot)
+corrplot(mat.cor, type="lower", diag=FALSE, order="AOE")
+
+library(corrgram)
+corrgram(mat.cor, order = TRUE, lower.panel = panel.conf, upper.panel = panel.shade)
 
 
 
