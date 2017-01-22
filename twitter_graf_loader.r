@@ -2,10 +2,8 @@ library(twitteR)
 library(dplyr)
 
 # dostęp do API
-consumer_key <- "A3X5BcazhcNn55B2UdIQSvVSr"
-consumer_secret <- "B0FwSEl8LkiKpemsePUzdvshwssT4LBA9apCzzCtpcDGY7XZ9L"
-access_token <- "66435928-8G1xIXbsrOd06lrCJ7NdBvZN4bAxPM4MHatUlraPo"
-access_secret <- "dUnRBUUab2aZIu80DnM4OcyFBR357ZnbWUt6xAJuHCgWW"
+# dost?p do API
+source('twitter_api_access.r')
 setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
 twuser <- "lemur78"
